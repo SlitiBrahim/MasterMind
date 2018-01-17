@@ -104,6 +104,7 @@ namespace MasterMind
                     Console.Write(toFillChar);
                 }
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void DrawRow(Row row, int xOffset=0) {
@@ -128,12 +129,11 @@ namespace MasterMind
 
         public int Play()
         {
+            FillBackgroundColor(BackgroundColor);
 
-             // AskGameParams(); //Comment this out later
+            AskGameParams(); //Comment this out later
 
             InitPlayers();
-
-            FillBackgroundColor(BackgroundColor);
 
             GenerateCombination();
 

@@ -22,8 +22,12 @@ namespace MasterMind
             {
                 do
                 {
-                    Console.WriteLine("Please enter pawn color for pawn number "
-                                      + (i + 1).ToString() + "/" + nbCols + ": ");
+                    Console.Write("Please enter pawn color for pawn number ");
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write((i + 1).ToString());
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("/" + nbCols.ToString() + ": ");
 
                     Console.Write("\nHere's the list of available colors:\n");
                     Pawn.DisplayAvailColors();
