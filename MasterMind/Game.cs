@@ -21,23 +21,8 @@ namespace MasterMind
         private ConsoleColor BackgroundColor = ConsoleColor.DarkGray;
 
         private void InitPlayers() {
-
-            Player tmpPlayer1;
-            Player tmpPlayer2;
-
-            if (Mode == "1vs1")
-            {
-                tmpPlayer1 = new Player();
-                tmpPlayer2 = new Player();
-            }
-            // change this when creating IA inherited class from Player
-            else {
-                tmpPlayer1 = new Player();
-                tmpPlayer2 = new Player();
-            }
-
-            Players.Add(tmpPlayer1);
-            Players.Add(tmpPlayer2);
+            Players.Add(new Player());
+            Players.Add((Mode == "1vs1") ? new Player() : new IA());
         }
 
         private void AskGameParams()
@@ -93,16 +78,11 @@ namespace MasterMind
 
         }
 
-        private void AskUserCombination() {
-
-
-        }
-
         private void GenerateCombination() {
 
             // code ...
 
-            Combination = new Row(NbCols);
+            // Combination = new Row(NbCols);
 
             Combination = Players[0].CreateCombination(NbCols);
         }
@@ -149,7 +129,7 @@ namespace MasterMind
         public int Play()
         {
 
-             // AskGameParams(); //Comment out later
+             // AskGameParams(); //Comment this out later
 
             InitPlayers();
 

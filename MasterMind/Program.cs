@@ -7,7 +7,8 @@ namespace MasterMind
         public static void Main(string[] args)
         {
             Game game = new Game();
-             game.Play();
+            game.Play();
+
         }
     }
 }

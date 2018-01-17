@@ -10,7 +10,7 @@ namespace MasterMind
         {
         }
 
-        public Row CreateCombination(int nbCols) {
+        public virtual Row CreateCombination(int nbCols) {
             
             string input;
             List<ConsoleColor> inputColors = new List<ConsoleColor>();
@@ -38,7 +38,7 @@ namespace MasterMind
                 Console.Clear();
             }
 
-            return Row.CreateRowOfPawnsByColors(inputColors);
+            return Row.RowOfPawnsByColors(inputColors);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace MasterMind
             return false;
         }
 
-        public static Row CreateRowOfPawnsByColors(List<ConsoleColor> colors) {
+        public static Row RowOfPawnsByColors(List<ConsoleColor> colors) {
 
             Row tmp = new Row(colors.Count);
 

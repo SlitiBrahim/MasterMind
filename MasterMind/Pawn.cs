@@ -32,12 +32,17 @@ namespace MasterMind
             return (pawn != null) ? pawn.GetColor() : ConsoleColor.Gray;
         }
 
-        public static void DisplayAvailColors() {
+        public static void DisplayAvailColors(List<ConsoleColor> arrToCompare = null) {
             for (int i = 0; i < AvailColors.Count; i++)
             {
-                Console.WriteLine(AvailColors[i]);
+                if (arrToCompare == null) {
+                    
+                }
+                Console.ForegroundColor = AvailColors[i];
+                Console.WriteLine(AvailColors[i] + " ●");
             }
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
