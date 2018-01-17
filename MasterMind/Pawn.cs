@@ -22,8 +22,22 @@ namespace MasterMind
             Color = color;
         }
 
-        public ConsoleColor getColor() {
+        public ConsoleColor GetColor() {
             return Color;
+        }
+
+        // Declared as static because it may me be called with "null", not necessarily with an instance
+        public static ConsoleColor GetPawnForegroundColor(Pawn pawn)
+        {
+            return (pawn != null) ? pawn.GetColor() : ConsoleColor.Gray;
+        }
+
+        public static void DisplayAvailColors() {
+            for (int i = 0; i < AvailColors.Count; i++)
+            {
+                Console.WriteLine(AvailColors[i]);
+            }
+            Console.WriteLine();
         }
     }
 }

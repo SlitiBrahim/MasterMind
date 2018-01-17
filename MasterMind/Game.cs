@@ -7,13 +7,13 @@ namespace MasterMind
     public class Game
     {
         private int MinNbCols = 4;
-        private int MaxNbCols = Pawn.AvailColors.Count - 2; // -2 for white and black
+        private int MaxNbCols = Pawn.AvailColors.Count;
         private int NbCols = 4;
         private int MinNbRows = 12;
         private int MaxNbRows = 20;
         private int NbRows = 12;
         private Row Combination;
-        // private bool IsGameOver;
+        private bool IsGameOver = false;
         private List<Player> Players = new List<Player>();
         // private Player Winner;
         private string Mode = "1vs1";
@@ -93,20 +93,18 @@ namespace MasterMind
 
         }
 
-        private void CreateCombination() {
+        private void AskUserCombination() {
+
+
+        }
+
+        private void GenerateCombination() {
 
             // code ...
 
             Combination = new Row(NbCols);
 
-            List<Pawn> tmpCells = new List<Pawn>();
-
-            for (int i = 0; i < NbCols; i++)
-            {
-                tmpCells.Add(new Pawn(Pawn.AvailColors[i]));
-            }
-
-            Combination.SetCells(tmpCells);
+            Combination = Players[0].CreateCombination(NbCols);
         }
 
         private void FillBackgroundColor(ConsoleColor color) {
@@ -128,19 +126,24 @@ namespace MasterMind
             }
         }
 
-        private void DrawRow(Row row) {
+        private void DrawRow(Row row, int xOffset=0) {
 
-            //char toFillChar = Encoding.GetEncoding(834).GetChars(new byte[] { 223 })[0];
+            List<Pawn> tmpPawns = row.GetPawns();   // return List of pawns
 
-            List<Pawn> tmpCells = row.GetCells();
-
-            for (int i = 0; i < tmpCells.Count; i++)
+            for (int i = 0; i < tmpPawns.Count; i++)
             {
-                Console.SetCursorPosition(5, 8 + 4 * i);
-                Console.ForegroundColor = tmpCells[i].getColor();
-                Console.WriteLine("⬤");
+                Console.SetCursorPosition(5 + (5 * xOffset), 8 + 4 * i);
+                Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
+                Console.WriteLine("●");
             }
 
+        }
+
+        private void DrawAttemptsRows() {
+            for (int i = 0; i < NbRows; i++)
+            {
+                DrawRow(Board[i], i);
+            }
         }
 
         public int Play()
@@ -150,13 +153,19 @@ namespace MasterMind
 
             InitPlayers();
 
-            CreateGameBoard();
-
-            CreateCombination();
-
             FillBackgroundColor(BackgroundColor);
 
+            GenerateCombination();
+
             DrawRow(Combination);
+            CreateGameBoard();
+            //DrawAttemptsRows();
+
+            // loop game
+            while (!IsGameOver)
+            {
+
+            }
 
             return 1;
         }
