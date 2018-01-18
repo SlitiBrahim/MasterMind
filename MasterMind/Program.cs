@@ -8,7 +8,6 @@ namespace MasterMind
         {
             Game game = new Game();
             game.Play();
-
         }
     }
 }

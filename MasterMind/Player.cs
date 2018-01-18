@@ -12,7 +12,7 @@ namespace MasterMind
 
         public virtual Row CreateCombination(int nbCols) {
             
-            string input;
+           string input;
             List<ConsoleColor> inputColors = new List<ConsoleColor>();
             ConsoleColor a;
 

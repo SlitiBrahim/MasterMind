@@ -79,12 +79,7 @@ namespace MasterMind
         }
 
         private void GenerateCombination() {
-
-            // code ...
-
-            // Combination = new Row(NbCols);
-
-            Combination = Players[0].CreateCombination(NbCols);
+            Combination = Players[(Mode == "1vs1") ? 0 : 1].CreateCombination(NbCols);
         }
 
         private void FillBackgroundColor(ConsoleColor color) {
@@ -121,7 +116,8 @@ namespace MasterMind
         }
 
         private void DrawAttemptsRows() {
-            for (int i = 0; i < NbRows; i++)
+            // draw last row first -> have first row at complete right
+            for (int i = NbRows - 1; i >= 0; i--)
             {
                 DrawRow(Board[i], i);
             }
@@ -137,14 +133,14 @@ namespace MasterMind
 
             GenerateCombination();
 
-            DrawRow(Combination);
+            //DrawRow(Combination);
             CreateGameBoard();
-            //DrawAttemptsRows();
+            DrawAttemptsRows();
 
             // loop game
             while (!IsGameOver)
             {
-
+                
             }
 
             return 1;
