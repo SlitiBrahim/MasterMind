@@ -39,6 +39,7 @@
     <Compile Include="Pawn.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="IA.cs" />
+    <Compile Include="Board.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

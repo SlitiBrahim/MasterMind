@@ -17,7 +17,7 @@ namespace MasterMind
         private List<Player> Players = new List<Player>();
         // private Player Winner;
         private string Mode = "1vs1";
-        private List<Row> Board = new List<Row>();
+        private Board Board;
         private ConsoleColor BackgroundColor = ConsoleColor.DarkGray;
 
         private void InitPlayers() {
@@ -31,10 +31,8 @@ namespace MasterMind
 
             Console.WriteLine(outputText);
 
-            int input;
-
             // not valid input
-            if (!((int.TryParse(Console.ReadLine(), out input)) && ((input == 1) || (input == 2))))
+            if (!((int.TryParse(Console.ReadLine(), out int input)) && ((input == 1) || (input == 2))))
             {
                 AskGameParams();
             }
@@ -66,16 +64,6 @@ namespace MasterMind
 
                 NbRows = input;
             }
-        }
-
-        private void CreateGameBoard()
-        {
-
-            for (int _ = 0; _ < NbRows; _++)
-            {
-                Board.Add(new Row(NbCols));
-            }
-
         }
 
         private void GenerateCombination() {
@@ -119,7 +107,7 @@ namespace MasterMind
             // draw last row first -> have first row at complete right
             for (int i = NbRows - 1; i >= 0; i--)
             {
-                DrawRow(Board[i], i);
+                DrawRow(Board.GetRow(i), i);
             }
         }
 
@@ -127,14 +115,15 @@ namespace MasterMind
         {
             FillBackgroundColor(BackgroundColor);
 
-            AskGameParams(); //Comment this out later
+            // AskGameParams(); //Comment this out later
+
+            Board = new Board(NbRows, NbCols);
 
             InitPlayers();
 
             GenerateCombination();
 
             //DrawRow(Combination);
-            CreateGameBoard();
             DrawAttemptsRows();
 
             // loop game
