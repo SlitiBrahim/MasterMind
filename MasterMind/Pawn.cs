@@ -17,13 +17,17 @@ namespace MasterMind
             ConsoleColor.Black
         };
 
-        public Pawn(ConsoleColor color)
+        public Pawn(ConsoleColor color = ConsoleColor.Black)
         {
             Color = color;
         }
 
         public ConsoleColor GetColor() {
             return Color;
+        }
+
+        public void SetColor(ConsoleColor color) {
+            Color = color;
         }
 
         // Declared as static because it may me be called with "null", not necessarily with an instance

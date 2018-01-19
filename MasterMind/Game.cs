@@ -100,14 +100,42 @@ namespace MasterMind
                 Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
                 Console.WriteLine("●");
             }
-
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void DrawAttemptsRows() {
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+
             // draw last row first -> have first row at complete right
             for (int i = NbRows - 1; i >= 0; i--)
             {
-                DrawRow(Board.GetRow(i), i);
+                DrawRow(Board.GetRow(i), (NbRows - 1) - i); // 2nd param: offset set to right, then shifting leftward
+            }
+        }
+
+        public void AskPlayerToEnterRow(int rowIndex = 0) {
+
+            Pawn providedPawn;
+            int playerIndex;
+
+            for (int i = 0; i < NbCols; i++)
+            {
+                if (Mode == "1vs1")
+                {
+                    playerIndex = 1;  // player[0] -> first player is the player who created the combination 
+                    Console.WriteLine("Please issue color you want to set to pawn" + (i + 1).ToString());
+                    Pawn.DisplayAvailColors();
+                }
+                else {
+                    playerIndex = 1;
+                }
+
+                providedPawn = Players[playerIndex].PlayPawn();
+                Board.SetPawnInRow(providedPawn, i, rowIndex);
+
+                DrawAttemptsRows();
             }
         }
 
@@ -124,12 +152,18 @@ namespace MasterMind
             GenerateCombination();
 
             //DrawRow(Combination);
-            DrawAttemptsRows();
+            //DrawAttemptsRows();
+
+            //AskPlayerToEnterRow();
+
+            // Altough DrawAttempts is called into AskPlayerToEnterRow(), that ensures rows will be drawn anycase
+            //DrawAttemptsRows(); 
 
             // loop game
             while (!IsGameOver)
             {
-                
+                DrawAttemptsRows();
+                AskPlayerToEnterRow();
             }
 
             return 1;

@@ -20,7 +20,7 @@ namespace MasterMind
 
             return tmp;
 
-            // comment this out later
+            // comment this out later, changer cette methode et mettre les print dans la class Game
 
             //string input;
             //List<ConsoleColor> inputColors = new List<ConsoleColor>();
@@ -54,5 +54,24 @@ namespace MasterMind
 
             //return Row.RowOfPawnsByColors(inputColors);
         }
+
+        public Pawn PlayPawn() {
+
+            Pawn tmpPawn = new Pawn();
+            string input;
+            ConsoleColor tmpColor;
+
+            do
+            {
+                input = Console.ReadLine();
+                tmpColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), input, true);
+
+            } while (!Pawn.AvailColors.Contains(tmpColor)); // loop while issued color doesn't exists
+
+            tmpPawn.SetColor(tmpColor);
+
+            return tmpPawn;
+        }
+
     }
 }

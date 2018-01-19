@@ -9,10 +9,6 @@ namespace MasterMind
 
         public Board(int nbRows, int nbCols)
         {
-            this.Init(nbRows, nbCols);
-        }
-
-        private void Init(int nbRows, int nbCols) {
             for (int i = 0; i < nbRows; i++)
             {
                 Rows.Add(new Row(nbCols));
