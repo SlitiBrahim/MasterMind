@@ -97,9 +97,9 @@ namespace MasterMind
 
             for (int i = 0; i < tmpPawns.Count; i++)
             {
-                Console.SetCursorPosition(5 + (5 * xOffset), 8 + 4 * i);
+                Console.SetCursorPosition(5 + (5 * xOffset), 2 + 4 * i);
                 Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
-                Console.WriteLine("●");
+                Console.WriteLine("☻");
             }
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -114,6 +114,8 @@ namespace MasterMind
             {
                 DrawRow(Board.GetRow(i), (NbRows - 1) - i); // 2nd param: offset set to right, then shifting leftward
             }
+
+            Console.SetCursorPosition(0, 20);
         }
 
         public void AskPlayerToEnterRow(int rowIndex = 0) {
@@ -147,7 +149,7 @@ namespace MasterMind
         private void ProcessVictory() {
             IsGameOver = true;
             Winner = Players[0];
-            Console.WriteLine("Cool you have found the combination in " + (Trial + 1).ToString() + " attempt" + ((Trial + 1 > 1) ? "s." : "."));
+            Console.WriteLine("Cool you have found the combination in " + (Trial + 1).ToString() + " trial" + ((Trial + 1 > 1) ? "s." : "."));
         }
 
         public int Play()
@@ -172,7 +174,7 @@ namespace MasterMind
                     ProcessVictory();
                 }
                 // Number of trials achieved
-                IsGameOver |= Trial == NbRows;
+                IsGameOver |= Trial == NbRows - 1;  // -1 -> Trial begins by 0
 
                 Trial++;    // incrementing trial -> number of user trials
             }
