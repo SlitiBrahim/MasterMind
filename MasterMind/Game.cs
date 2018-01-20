@@ -11,7 +11,8 @@ namespace MasterMind
         private int NbCols = 4;
         private int MinNbRows = 12;
         private int MaxNbRows = 20;
-        private int NbRows = 12;
+        private int NbRows = 2; // 12
+        private int Trial = 0;
         private Row Combination;
         private bool IsGameOver = false;
         private List<Player> Players = new List<Player>();
@@ -139,6 +140,10 @@ namespace MasterMind
             }
         }
 
+        private bool CombinationFound() {
+            return this.Combination.Equals(Board.GetRow(Trial));
+        }
+
         public int Play()
         {
             FillBackgroundColor(BackgroundColor);
@@ -163,8 +168,16 @@ namespace MasterMind
             while (!IsGameOver)
             {
                 DrawAttemptsRows();
-                AskPlayerToEnterRow();
+                AskPlayerToEnterRow(Trial);
+
+                // Number of trials achieved OR combination found
+                IsGameOver |= CombinationFound() | Trial == NbRows;
+
+                Trial++;    // incrementing trial -> number of user trials
             }
+
+            //Console.Clear();
+            Console.WriteLine("\nThis is the end");
 
             return 1;
         }

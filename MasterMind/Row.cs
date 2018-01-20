@@ -56,5 +56,30 @@ namespace MasterMind
 
             return tmp;
         }
+
+        public override bool Equals(object obj) {
+            return this.Equals(obj as Row);
+        }
+
+        public bool Equals(Row other) {
+
+            if (this.Pawns == null && other.GetPawns() == null) {
+                return true;
+            }
+
+            for (int i = 0; i < Pawns.Count; i++)
+            {
+                if (other.GetPawns()[i] != this.Pawns[i]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

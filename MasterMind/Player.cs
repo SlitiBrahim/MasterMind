@@ -15,7 +15,8 @@ namespace MasterMind
             Row tmp = new Row(nbCols);
             for (int i = 0; i < nbCols; i++)
             {
-                tmp.SetPawnAt(new Pawn(Pawn.AvailColors[i]), i);
+                tmp.SetPawnAt(new Pawn(ConsoleColor.Red), i);
+                //tmp.SetPawnAt(new Pawn(Pawn.AvailColors[i]), i);
             }
 
             return tmp;
