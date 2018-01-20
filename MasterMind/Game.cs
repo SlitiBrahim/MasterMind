@@ -22,8 +22,8 @@ namespace MasterMind
         private ConsoleColor BackgroundColor = ConsoleColor.DarkGray;
 
         private void InitPlayers() {
-            Players.Add(new Player());
             Players.Add((Mode == "1vs1") ? new Player() : new IA());
+            Players.Add(new Player());
         }
 
         private void AskGameParams()
@@ -68,7 +68,7 @@ namespace MasterMind
         }
 
         private void GenerateCombination() {
-            Combination = Players[(Mode == "1vs1") ? 0 : 1].CreateCombination(NbCols);
+            Combination = Players[0].CreateCombination(NbCols);
         }
 
         private void FillBackgroundColor(ConsoleColor color) {
@@ -95,19 +95,13 @@ namespace MasterMind
         public void AskPlayerToEnterRow(int rowIndex = 0) {
 
             Pawn providedPawn;
-            int playerIndex;
+            // player[0] -> player who created the combination | [1] player who has to guess
+            int playerIndex = 1;
 
             for (int i = 0; i < NbCols; i++)
             {
-                if (Mode == "1vs1")
-                {
-                    playerIndex = 1;  // player[0] -> first player is the player who created the combination 
-                    Console.WriteLine("Please issue color you want to set to pawn" + (i + 1).ToString());
-                    Pawn.DisplayAvailColors();
-                }
-                else {
-                    playerIndex = 1;
-                }
+                Console.WriteLine("Please issue color you want to set to pawn" + (i + 1).ToString());
+                Pawn.DisplayAvailColors();
 
                 providedPawn = Players[playerIndex].PlayPawn();
                 Board.SetPawnInRow(providedPawn, i, rowIndex);
@@ -122,7 +116,7 @@ namespace MasterMind
 
         private void ProcessVictory() {
             IsGameOver = true;
-            Winner = Players[0];
+            Winner = Players[1]; // [0] player who made combination, [1] user who have to guess combination
             Console.WriteLine("Cool you have found the combination in " + (Trial + 1).ToString() + " trial" + ((Trial + 1 > 1) ? "s." : "."));
         }
 
@@ -130,7 +124,7 @@ namespace MasterMind
         {
             FillBackgroundColor(BackgroundColor);
 
-            // AskGameParams(); //Comment this out later
+            AskGameParams(); //Comment this out later
 
             Board = new Board(NbRows, NbCols);
 

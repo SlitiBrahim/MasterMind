@@ -46,7 +46,7 @@ namespace MasterMind
             {
                 Console.SetCursorPosition(5 + (5 * xOffset), 2 + 4 * i);
                 Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
-                Console.WriteLine("☻");
+                Console.WriteLine(Pawn.BigPawn);
             }
             Console.ForegroundColor = ConsoleColor.White;
         }

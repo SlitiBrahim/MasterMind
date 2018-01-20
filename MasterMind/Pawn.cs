@@ -16,6 +16,8 @@ namespace MasterMind
             ConsoleColor.White,
             ConsoleColor.Black
         };
+        public static string BigPawn = "☻";
+        public static string SmallPawn = "●";
 
         public Pawn(ConsoleColor color = ConsoleColor.Black)
         {
