@@ -16,7 +16,7 @@ namespace MasterMind
         private Row Combination;
         private bool IsGameOver = false;
         private List<Player> Players = new List<Player>();
-        // private Player Winner;
+        private Player Winner;
         private string Mode = "1vs1";
         private Board Board;
         private ConsoleColor BackgroundColor = ConsoleColor.DarkGray;
@@ -144,6 +144,12 @@ namespace MasterMind
             return this.Combination.Equals(Board.GetRow(Trial));
         }
 
+        private void ProcessVictory() {
+            IsGameOver = true;
+            Winner = Players[0];
+            Console.WriteLine("Cool you have found the combination in " + (Trial + 1).ToString() + " attempt" + ((Trial + 1 > 1) ? "s." : "."));
+        }
+
         public int Play()
         {
             FillBackgroundColor(BackgroundColor);
@@ -156,22 +162,17 @@ namespace MasterMind
 
             GenerateCombination();
 
-            //DrawRow(Combination);
-            //DrawAttemptsRows();
-
-            //AskPlayerToEnterRow();
-
-            // Altough DrawAttempts is called into AskPlayerToEnterRow(), that ensures rows will be drawn anycase
-            //DrawAttemptsRows(); 
-
             // loop game
             while (!IsGameOver)
             {
                 DrawAttemptsRows();
                 AskPlayerToEnterRow(Trial);
 
-                // Number of trials achieved OR combination found
-                IsGameOver |= CombinationFound() | Trial == NbRows;
+                if (CombinationFound()) {
+                    ProcessVictory();
+                }
+                // Number of trials achieved
+                IsGameOver |= Trial == NbRows;
 
                 Trial++;    // incrementing trial -> number of user trials
             }

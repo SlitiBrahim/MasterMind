@@ -69,7 +69,8 @@ namespace MasterMind
 
             for (int i = 0; i < Pawns.Count; i++)
             {
-                if (other.GetPawns()[i] != this.Pawns[i]) {
+                // not same color
+                if (other.GetPawns()[i].GetColor() != this.Pawns[i].GetColor()) {
                     return false;
                 }
             }
