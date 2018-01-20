@@ -36,5 +36,34 @@ namespace MasterMind
 
             return false;
         }
+
+        public void DrawRow(Row row, int xOffset = 0)
+        {
+
+            List<Pawn> tmpPawns = row.GetPawns();   // return List of pawns
+
+            for (int i = 0; i < tmpPawns.Count; i++)
+            {
+                Console.SetCursorPosition(5 + (5 * xOffset), 2 + 4 * i);
+                Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
+                Console.WriteLine("☻");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void DrawAttemptsRows()
+        {
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+
+            // draw last row first -> have first row at complete right
+            for (int i = Rows.Count - 1; i >= 0; i--)
+            {
+                DrawRow(Rows[i], (Rows.Count - 1) - i); // 2nd param: offset set to right, then shifting leftward
+            }
+
+            Console.SetCursorPosition(0, 20);
+        }
     }
 }

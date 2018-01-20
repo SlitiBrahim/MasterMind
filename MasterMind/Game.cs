@@ -91,32 +91,6 @@ namespace MasterMind
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        private void DrawRow(Row row, int xOffset=0) {
-
-            List<Pawn> tmpPawns = row.GetPawns();   // return List of pawns
-
-            for (int i = 0; i < tmpPawns.Count; i++)
-            {
-                Console.SetCursorPosition(5 + (5 * xOffset), 2 + 4 * i);
-                Console.ForegroundColor = Pawn.GetPawnForegroundColor(tmpPawns[i]);
-                Console.WriteLine("☻");
-            }
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        private void DrawAttemptsRows() {
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Clear();
-
-            // draw last row first -> have first row at complete right
-            for (int i = NbRows - 1; i >= 0; i--)
-            {
-                DrawRow(Board.GetRow(i), (NbRows - 1) - i); // 2nd param: offset set to right, then shifting leftward
-            }
-
-            Console.SetCursorPosition(0, 20);
-        }
 
         public void AskPlayerToEnterRow(int rowIndex = 0) {
 
@@ -138,7 +112,7 @@ namespace MasterMind
                 providedPawn = Players[playerIndex].PlayPawn();
                 Board.SetPawnInRow(providedPawn, i, rowIndex);
 
-                DrawAttemptsRows();
+                Board.DrawAttemptsRows();
             }
         }
 
@@ -167,7 +141,7 @@ namespace MasterMind
             // loop game
             while (!IsGameOver)
             {
-                DrawAttemptsRows();
+                Board.DrawAttemptsRows();
                 AskPlayerToEnterRow(Trial);
 
                 if (CombinationFound()) {
