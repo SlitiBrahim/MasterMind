@@ -7,24 +7,33 @@ namespace MasterMind
     {
         private List<Pawn> Pawns = new List<Pawn>();
 
+        public Row()
+        {
+        }
+
         public Row(int cols)
         {
-            for (int _ = 0; _ < cols; _++) {
+            for (int _ = 0; _ < cols; _++)
+            {
                 Pawns.Add(null);
             }
         }
 
-        public void AddPawn(Pawn pawn) {
+        public void AddPawn(Pawn pawn)
+        {
             Pawns.Add(pawn);
         }
 
-        public List<Pawn> GetPawns() {
+        public List<Pawn> GetPawns()
+        {
             return Pawns;
         }
 
-        public bool SetPawns(List<Pawn> other) {
+        public bool SetPawns(List<Pawn> other)
+        {
 
-            if (other.Count == Pawns.Count) {
+            if (other.Count == Pawns.Count)
+            {
 
                 Pawns = other;
 
@@ -34,18 +43,21 @@ namespace MasterMind
             return false;
         }
 
-        public bool SetPawnAt(Pawn pawn, int index) {
+        public bool SetPawnAt(Pawn pawn, int index)
+        {
 
-            if (Math.Abs(index) < Pawns.Count) {
+            if (Math.Abs(index) < Pawns.Count)
+            {
                 Pawns[index] = pawn;
 
-                return true;                
+                return true;
             }
 
             return false;
         }
 
-        public static Row RowOfPawnsByColors(List<ConsoleColor> colors) {
+        public static Row RowOfPawnsByColors(List<ConsoleColor> colors)
+        {
 
             Row tmp = new Row(colors.Count);
 
@@ -57,20 +69,24 @@ namespace MasterMind
             return tmp;
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             return this.Equals(obj as Row);
         }
 
-        public bool Equals(Row other) {
+        public bool Equals(Row other)
+        {
 
-            if (this.Pawns == null && other.GetPawns() == null) {
+            if (this.Pawns == null && other.GetPawns() == null)
+            {
                 return true;
             }
 
             for (int i = 0; i < Pawns.Count; i++)
             {
                 // not same color
-                if (other.GetPawns()[i].GetColor() != this.Pawns[i].GetColor()) {
+                if (other.GetPawns()[i].GetColor() != this.Pawns[i].GetColor())
+                {
                     return false;
                 }
             }
@@ -82,5 +98,22 @@ namespace MasterMind
         {
             return base.GetHashCode();
         }
+
+        public bool Contains(Pawn pawn)
+        {
+            if (Pawns.Count > 0) {
+                for (int i = 0; i < Pawns.Count; i++)
+                {
+                    if (Pawns[i] != null && Pawns[i].GetColor() == pawn.GetColor())
+                    {
+                        return true;
+                    }
+                }
+            }
+
+
+            return false;
+        }
+
     }
 }

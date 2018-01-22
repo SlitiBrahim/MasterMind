@@ -9,7 +9,7 @@ namespace MasterMind
         private int MinNbCols = 4;
         private int MaxNbCols = Pawn.AvailColors.Count;
         private int NbCols = 4;
-        private int MinNbRows = 12;
+        private int MinNbRows = 2; //12
         private int MaxNbRows = 20;
         private int NbRows = 2; // 12
         private int Trial = 0;
@@ -92,22 +92,29 @@ namespace MasterMind
         }
 
 
-        public void AskPlayerToEnterRow(int rowIndex = 0) {
+        public Row AskPlayerToEnterRow(int rowIndex) {
 
+            Row currentRow = new Row(NbCols);
             Pawn providedPawn;
             // player[0] -> player who created the combination | [1] player who has to guess
             int playerIndex = 1;
 
             for (int i = 0; i < NbCols; i++)
             {
-                Console.WriteLine("Please issue color you want to set to pawn" + (i + 1).ToString());
+                Console.WriteLine("Please issue color you want to set to pawn " + (i + 1).ToString());
                 Pawn.DisplayAvailColors();
 
                 providedPawn = Players[playerIndex].PlayPawn();
                 Board.SetPawnInRow(providedPawn, i, rowIndex);
+                currentRow.SetPawnAt(providedPawn, i);
 
-                Board.DrawAttemptsRows();
+                Board.DrawAttemptsRows(true);
             }
+
+            Board.SetIndex(Combination, currentRow, Trial);
+            //Board.DrawAttemptsRows(Combination, currentRow, true);
+
+            return currentRow;
         }
 
         private bool CombinationFound() {
@@ -132,19 +139,28 @@ namespace MasterMind
 
             GenerateCombination();
 
+            Row playerRowAnswer = null;
+
             // loop game
             while (!IsGameOver)
             {
-                Board.DrawAttemptsRows();
-                AskPlayerToEnterRow(Trial);
+                // Draw indexes only if player already provided a row -> not first loop because default = null
+                Board.DrawAttemptsRows(playerRowAnswer != null);
 
-                if (CombinationFound()) {
+                playerRowAnswer = AskPlayerToEnterRow(Trial);
+
+                Board.DrawAttemptsRows(true);
+
+                // not first loop
+                if (playerRowAnswer != null && CombinationFound())
+                {
                     ProcessVictory();
                 }
+                                
                 // Number of trials achieved
                 IsGameOver |= Trial == NbRows - 1;  // -1 -> Trial begins by 0
 
-                Trial++;    // incrementing trial -> number of user trials
+                Trial++; // incrementing trial -> number of user trials
             }
 
             //Console.Clear();
@@ -152,6 +168,5 @@ namespace MasterMind
 
             return 1;
         }
-
     }
 }
