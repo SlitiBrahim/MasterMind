@@ -9,9 +9,9 @@ namespace MasterMind
         private int MinNbCols = 4;
         private int MaxNbCols = Pawn.AvailColors.Count;
         private int NbCols = 4;
-        private int MinNbRows = 2; //12
+        private int MinNbRows = 12; //12
         private int MaxNbRows = 20;
-        private int NbRows = 2; // 12
+        private int NbRows = 12; // 12
         private int Trial = 0;
         private Row Combination;
         private bool IsGameOver = false;
@@ -101,6 +101,9 @@ namespace MasterMind
 
             for (int i = 0; i < NbCols; i++)
             {
+
+                Console.SetCursorPosition(70, 10);
+
                 Console.WriteLine("Please issue color you want to set to pawn " + (i + 1).ToString());
                 Pawn.DisplayAvailColors();
 
@@ -112,7 +115,6 @@ namespace MasterMind
             }
 
             Board.SetIndex(Combination, currentRow, Trial);
-            //Board.DrawAttemptsRows(Combination, currentRow, true);
 
             return currentRow;
         }

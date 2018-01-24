@@ -34,6 +34,7 @@ namespace MasterMind
         public bool SetPawnInRow (Pawn pawn, int pawnIndex, int rowIndex) {
 
             if (Math.Abs(rowIndex) < Rows.Count)
+
                 return Rows[rowIndex].SetPawnAt(pawn, pawnIndex);
 
             return false;
@@ -72,14 +73,14 @@ namespace MasterMind
             }
         }
 
-        private void DrawIndex(int rowIndex, int xOffset = 0) {
+        private void DrawIndexes(int rowIndex, int xOffset = 0) {
 
             Row currentIndex = Indexes[rowIndex];
             int nbCols = currentIndex.GetPawns().Count;
 
             for (int i = 0; i < nbCols; i++)
             {
-                Console.SetCursorPosition(40 + (5 * xOffset), 7 + i);
+                Console.SetCursorPosition(5 + (5 * xOffset), 20 + i);
                 Console.ForegroundColor = currentIndex.GetPawns()[i].GetColor();
                 Console.WriteLine(Pawn.SmallPawn);
             }
@@ -98,7 +99,7 @@ namespace MasterMind
 
                 if (showIndexes) {
                    
-                    DrawIndex(i, (Rows.Count - 1) - i); //changer avec i
+                    DrawIndexes(i, (Rows.Count - 1) - i); //changer avec i
                 }
             }
 

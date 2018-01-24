@@ -43,6 +43,8 @@ namespace MasterMind
                     Console.Write("\nHere's the list of available colors:\n");
                     Pawn.DisplayAvailColors();
 
+                    //Console.SetCursorPosition(80, 30);
+
                     input = Console.ReadLine();
                     a = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), input, true);    // parse string input to ConsoleColor object
 
